@@ -120,20 +120,23 @@
                     <button type="submit" class="btn-primary">Save Workout</button>
                 </form>
 
-                <!-- Data Management -->
-                <div class="data-section">
-                    <h3>Data Management</h3>
-                    <div class="data-buttons">
-                        <button id="importCsvBtn" class="btn-secondary">Import CSV</button>
-                        <button id="exportJsonBtn" class="btn-secondary">Export JSON</button>
-                        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
-                    </div>
-                    <div id="importStatus"></div>
-                    <div class="import-help">
-                        <small>CSV format: date,topCategories,gymSubs,cardioSubs,notes<br>
-                        Example: 2025-01-15,Gym|Cardio,Chest|Back,Run,Morning workout</small>
-                    </div>
-                </div>
+               <!-- Data Management -->
+<div class="data-section">
+    <h3>Data Management</h3>
+    <div class="data-buttons">
+        <button id="importCsvBtn" class="btn-secondary">Import CSV</button>
+        <button id="importJsonBtn" class="btn-secondary">Import JSON</button>
+        <button id="exportJsonBtn" class="btn-secondary">Export JSON</button>
+        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+        <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+    </div>
+    <div id="importStatus"></div>
+    <div class="import-help">
+        <small>CSV format: date,topCategories,gymSubs,cardioSubs,notes<br>
+        Example: 2025-01-15,Gym|Cardio,Chest|Back,Run,Morning workout<br><br>
+        JSON format: Export from this app and re-import</small>
+    </div>
+</div>
 
                 <!-- Recent Workouts -->
                 <div class="recent-section">
