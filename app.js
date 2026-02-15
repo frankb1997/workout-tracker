@@ -605,24 +605,44 @@ function setupCalendarHandlers() {
 }
 
 function setupDataHandlers() {
-    const importBtn = document.getElementById('importCsvBtn');
+    const importCsvBtn = document.getElementById('importCsvBtn');
+    const importJsonBtn = document.getElementById('importJsonBtn');
     const exportBtn = document.getElementById('exportJsonBtn');
     const compareBtn = document.getElementById('compareBtn');
-    const fileInput = document.getElementById('csvFileInput');
+    const csvFileInput = document.getElementById('csvFileInput');
+    const jsonFileInput = document.getElementById('jsonFileInput');
     const dashboardYearSelect = document.getElementById('dashboardYearSelect');
     
-    if (importBtn && fileInput) {
-        importBtn.addEventListener('click', function() {
-            fileInput.click();
+    if (importCsvBtn && csvFileInput) {
+        importCsvBtn.addEventListener('click', function() {
+            csvFileInput.click();
         });
         
-        fileInput.addEventListener('change', function(e) {
+        csvFileInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
             
             const reader = new FileReader();
             reader.onload = function(event) {
                 importCSV(event.target.result);
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        });
+    }
+    
+    if (importJsonBtn && jsonFileInput) {
+        importJsonBtn.addEventListener('click', function() {
+            jsonFileInput.click();
+        });
+        
+        jsonFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                importJSON(event.target.result);
             };
             reader.readAsText(file);
             e.target.value = '';
@@ -710,7 +730,68 @@ function importCSV(csvText) {
     showImportStatus(msg, imported > 0 ? 'success' : 'error');
     renderApp();
 }
-
+function importJSON(jsonText) {
+    try {
+        const importedWorkouts = JSON.parse(jsonText);
+        
+        if (!Array.isArray(importedWorkouts)) {
+            showImportStatus('Invalid JSON format', 'error');
+            return;
+        }
+        
+        const currentWorkouts = loadWorkouts();
+        const existingKeys = new Set(currentWorkouts.map(getStableKey));
+        
+        let imported = 0;
+        let duplicates = 0;
+        let errors = 0;
+        
+        importedWorkouts.forEach(function(workout) {
+            try {
+                // Validate workout has required fields
+                if (!workout.date || !workout.categories) {
+                    errors++;
+                    return;
+                }
+                
+                // Create workout with new ID and timestamp
+                const newWorkout = {
+                    id: generateId(),
+                    date: workout.date,
+                    categories: workout.categories || [],
+                    gymSubs: workout.gymSubs || [],
+                    cardioSubs: workout.cardioSubs || [],
+                    notes: workout.notes || '',
+                    timestamp: Date.now()
+                };
+                
+                const key = getStableKey(newWorkout);
+                
+                if (existingKeys.has(key)) {
+                    duplicates++;
+                } else {
+                    currentWorkouts.push(newWorkout);
+                    existingKeys.add(key);
+                    imported++;
+                }
+            } catch (err) {
+                errors++;
+            }
+        });
+        
+        saveWorkouts(currentWorkouts);
+        
+        let msg = 'Imported ' + imported + ' workout(s)';
+        if (duplicates > 0) msg += ', ' + duplicates + ' duplicate(s) skipped';
+        if (errors > 0) msg += ', ' + errors + ' error(s)';
+        
+        showImportStatus(msg, imported > 0 ? 'success' : 'error');
+        renderApp();
+        
+    } catch (err) {
+        showImportStatus('Invalid JSON file: ' + err.message, 'error');
+    }
+}
 function exportJSON() {
     const workouts = loadWorkouts();
     const json = JSON.stringify(workouts, null, 2);
