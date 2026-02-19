@@ -461,6 +461,13 @@ function deleteWorkout(id) {
     renderApp();
 }
 
+function setToday() {
+    const dateInput = document.getElementById('workoutDate');
+    if (dateInput) {
+        dateInput.valueAsDate = new Date();
+    }
+}
+
 function changeDashboardYear() {
     const yearSelect = document.getElementById('dashboardYearSelect');
     if (yearSelect) {
