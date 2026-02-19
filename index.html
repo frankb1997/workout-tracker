@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Tracker</title>
+    <title>My Workouts</title>
     <link rel="stylesheet" href="styles.css">
     
     <!-- PWA manifest -->
@@ -11,14 +11,10 @@
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Workouts">
+    <meta name="apple-mobile-web-app-title" content="My Workouts">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>💪 Workout Tracker</h1>
-        </header>
-
         <!-- Tabs -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="log">Log</button>
@@ -30,15 +26,20 @@
         <!-- Log Tab -->
         <div id="log-tab" class="tab-content active">
             <div class="card">
-                <h2>Log Workout</h2>
+                <div class="card-header">
+                    <h2>Log Workout</h2>
+                </div>
                 <form id="workoutForm">
                     <div class="form-group">
-                        <label>Date:</label>
-                        <input type="date" id="workoutDate" required>
+                        <label>Date</label>
+                        <div class="date-input-group">
+                            <input type="date" id="workoutDate" required>
+                            <button type="button" class="btn-today" onclick="setToday()">Today</button>
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>Categories:</label>
+                        <label>Categories</label>
                         <div class="categories">
                             <label class="category-checkbox">
                                 <input type="checkbox" name="category" value="Gym" class="parent-checkbox">
@@ -69,7 +70,7 @@
 
                     <!-- Gym Subcategories -->
                     <div class="subcategory-section" id="gymSubSection" style="display: none;">
-                        <label>Gym Subcategories:</label>
+                        <label>Gym Focus</label>
                         <div class="categories">
                             <label class="category-checkbox">
                                 <input type="checkbox" name="gymSub" value="Chest">
@@ -96,7 +97,7 @@
 
                     <!-- Cardio Subcategories -->
                     <div class="subcategory-section" id="cardioSubSection" style="display: none;">
-                        <label>Cardio Subcategories:</label>
+                        <label>Cardio Type</label>
                         <div class="categories">
                             <label class="category-checkbox">
                                 <input type="checkbox" name="cardioSub" value="Run">
@@ -120,23 +121,18 @@
                     <button type="submit" class="btn-primary">Save Workout</button>
                 </form>
 
-               <!-- Data Management -->
-<div class="data-section">
-    <h3>Data Management</h3>
-    <div class="data-buttons">
-        <button id="importCsvBtn" class="btn-secondary">Import CSV</button>
-        <button id="importJsonBtn" class="btn-secondary">Import JSON</button>
-        <button id="exportJsonBtn" class="btn-secondary">Export JSON</button>
-        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
-        <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
-    </div>
-    <div id="importStatus"></div>
-    <div class="import-help">
-        <small>CSV format: date,topCategories,gymSubs,cardioSubs,notes<br>
-        Example: 2025-01-15,Gym|Cardio,Chest|Back,Run,Morning workout<br><br>
-        JSON format: Export from this app and re-import</small>
-    </div>
-</div>
+                <!-- Data Management -->
+                <div class="data-section">
+                    <h3>Data Management</h3>
+                    <div class="data-buttons">
+                        <button id="importCsvBtn" class="btn-secondary">Import CSV</button>
+                        <button id="importJsonBtn" class="btn-secondary">Import JSON</button>
+                        <button id="exportJsonBtn" class="btn-secondary">Export JSON</button>
+                        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+                        <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+                    </div>
+                    <div id="importStatus"></div>
+                </div>
 
                 <!-- Recent Workouts -->
                 <div class="recent-section">
@@ -149,10 +145,10 @@
         <!-- Dashboard Tab -->
         <div id="dashboard-tab" class="tab-content">
             <div class="card">
-                <div class="dashboard-header">
+                <div class="card-header">
                     <h2>Dashboard</h2>
                     <div class="year-selector-inline">
-                        <label>Year:</label>
+                        <label>Year</label>
                         <select id="dashboardYearSelect"></select>
                     </div>
                 </div>
@@ -166,15 +162,17 @@
         <!-- Compare Tab -->
         <div id="compare-tab" class="tab-content">
             <div class="card">
-                <h2>Year Comparison</h2>
+                <div class="card-header">
+                    <h2>Year Comparison</h2>
+                </div>
                 
                 <div class="year-selector">
                     <div class="selector-group">
-                        <label>Year 1:</label>
+                        <label>Year 1</label>
                         <select id="year1Select"></select>
                     </div>
                     <div class="selector-group">
-                        <label>Year 2:</label>
+                        <label>Year 2</label>
                         <select id="year2Select"></select>
                     </div>
                     <button id="compareBtn" class="btn-secondary">Compare</button>
@@ -187,7 +185,9 @@
         <!-- Calendar Tab -->
         <div id="calendar-tab" class="tab-content">
             <div class="card">
-                <h2>Calendar</h2>
+                <div class="card-header">
+                    <h2>Calendar</h2>
+                </div>
                 
                 <div class="month-nav">
                     <button id="prevMonth" class="nav-btn">← Previous</button>
@@ -201,7 +201,9 @@
             </div>
 
             <div class="card">
-                <h2>History</h2>
+                <div class="card-header">
+                    <h2>History</h2>
+                </div>
                 <div id="historyList"></div>
             </div>
         </div>
