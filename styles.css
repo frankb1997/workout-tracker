@@ -698,6 +698,12 @@ input[type="date"]:focus {
         padding: 16px;
     }
     
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         padding: 16px;
@@ -711,19 +717,42 @@ input[type="date"]:focus {
         flex-direction: column;
     }
     
-    .year-selector {
-        flex-direction: column;
+    .data-buttons .btn-secondary {
+        width: 100%;
     }
     
+    /* Year selector - mobile */
+    .year-selector {
+        flex-direction: column !important;
+        gap: 16px !important;
+        padding: 16px !important;
+    }
+    
+    .selector-group {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    
+    .year-selector .btn-secondary {
+        width: 100% !important;
+    }
+    
+    /* Comparison tables */
     .comparison-table {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .comparison-table th,
     .comparison-table td {
-        padding: 10px;
+        padding: 8px 6px;
     }
     
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        padding-left: 12px;
+    }
+    
+    /* Calendar adjustments */
     .calendar-grid {
         gap: 4px;
         padding: 0 16px 16px 16px;
@@ -750,11 +779,5 @@ input[type="date"]:focus {
     
     .month-nav {
         padding: 16px;
-    }
-    
-    .card-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
     }
 }
