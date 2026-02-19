@@ -1,5 +1,5 @@
 {
-  "name": "Workout Tracker",
+  "name": "My Workouts",
   "short_name": "Workouts",
   "description": "Track your workouts with categories and stats",
   "start_url": "/workout-tracker/",
