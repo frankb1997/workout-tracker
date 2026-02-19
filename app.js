@@ -464,7 +464,11 @@ function deleteWorkout(id) {
 function setToday() {
     const dateInput = document.getElementById('workoutDate');
     if (dateInput) {
-        dateInput.valueAsDate = new Date();
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        dateInput.value = year + '-' + month + '-' + day;
     }
 }
 
