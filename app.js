@@ -381,35 +381,20 @@ function renderCalendar() {
     }
     
     for (let day = 1; day <= daysInMonth; day++) {
-        const dateStr = calendarYear + '-' + String(calendarMonth + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
-        const currentDate = parseDate(dateStr);
-        
-        let classes = 'calendar-day';
-        if (currentDate.toDateString() === today.toDateString()) classes += ' today';
-        if (selectedDate === dateStr) classes += ' selected';
-        
-        const dayWorkouts = workoutsByDate[dateStr] || [];
-        
-        let workoutBadges = '';
-        if (dayWorkouts.length > 0) {
-            classes += ' has-workouts';
-            workoutBadges = '<div class="workout-badges">';
-            dayWorkouts.forEach(function(w) {
-                w.categories.forEach(function(cat) {
-                    workoutBadges += '<span class="mini-badge">' + cat + '</span>';
-                });
-                (w.gymSubs || []).forEach(function(sub) {
-                    workoutBadges += '<span class="mini-badge sub">' + sub + '</span>';
-                });
-                (w.cardioSubs || []).forEach(function(sub) {
-                    workoutBadges += '<span class="mini-badge sub">' + sub + '</span>';
-                });
-            });
-            workoutBadges += '</div>';
-        }
-        
-        html += '<div class="' + classes + '" onclick="showDayDetails(\'' + dateStr + '\')"><div class="day-number">' + day + '</div>' + workoutBadges + '</div>';
+    const dateStr = calendarYear + '-' + String(calendarMonth + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+    const currentDate = parseDate(dateStr);
+    
+    let classes = 'calendar-day';
+    if (currentDate.toDateString() === today.toDateString()) classes += ' today';
+    if (selectedDate === dateStr) classes += ' selected';
+    
+    const dayWorkouts = workoutsByDate[dateStr] || [];
+    if (dayWorkouts.length > 0) {
+        classes += ' has-workouts';
     }
+    
+    html += '<div class="' + classes + '" onclick="showDayDetails(\'' + dateStr + '\')"><div class="day-number">' + day + '</div></div>';
+}
     
     grid.innerHTML = html;
 }
