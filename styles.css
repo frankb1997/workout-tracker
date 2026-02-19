@@ -436,7 +436,7 @@ input[type="date"] {
     color: #999;
 }
 
-/* Calendar */
+//* Calendar */
 .month-nav {
     display: flex;
     justify-content: space-between;
@@ -489,12 +489,14 @@ input[type="date"] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 8px 4px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
     background: white;
     position: relative;
+    overflow: visible;
 }
 
 .calendar-day:hover {
@@ -518,5 +520,65 @@ input[type="date"] {
     color: white;
 }
 
-.calendar-day.selected .workout-dot {
-    back
+.day-number {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Workout indicator dot */
+.calendar-day.has-workouts::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    width: 6px;
+    height: 6px;
+    background: #667eea;
+    border-radius: 50%;
+}
+
+.calendar-day.selected.has-workouts::after {
+    background: white;
+}
+
+/* Hide the workout badges */
+.workout-badges {
+    display: none;
+}
+
+.day-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.day-details h3 {
+    margin-top: 0;
+    color: #667eea;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .calendar-grid {
+        gap: 4px;
+    }
+    
+    .calendar-day {
+        padding: 4px 2px;
+    }
+    
+    .calendar-day-header {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+    
+    .day-number {
+        font-size: 0.85rem;
+    }
+    
+    .calendar-day.has-workouts::after {
+        width: 5px;
+        height: 5px;
+        bottom: 3px;
+    }
+}
